@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora Flask</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light text-center py-5">
+
+    <div class="container">
+        <div class="card shadow mx-auto" style="max-width: 500px;">
+            <div class="card-body">
+                <h2 class="card-title mb-4">Calculadora com Flask</h2>
+
+                <form action="/calcular" method="post" class="d-grid gap-3">
+                    <input type="number" name="num1" class="form-control" placeholder="Digite o primeiro número" required>
+                    <input type="number" name="num2" class="form-control" placeholder="Digite o segundo número" required>
+                    <select name="operacao" class="form-select" required>
+                        <option value="soma">Soma (+)</option>
+                        <option value="subtracao">Subtração (-)</option>
+                        <option value="multiplicacao">Multiplicação (*)</option>
+                        <option value="divisao">Divisão (/)</option>
+                        <option value="potencia">Potência (^)</option>
+                    </select>
+
+                    <button type="submit" class="btn btn-primary">Calcular</button>
+                </form>
+
+                <form action="/apagar" method="post" class="mt-3">
+                    <button type="submit" class="btn btn-danger">Apagar Histórico</button>
+                </form>
+
+                {% if resultado is not none %}
+                    <div class="alert alert-success mt-4">
+                        <strong>Resultado:</strong> {{ resultado }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="mt-5 text-start">
+            <h4>Histórico de Operações</h4>
+            <ul class="list-group">
+                {% for item in historico %}
+                    <li class="list-group-item">{{ item[0] }}</li>
+                {% else %}
+                    <li class="list-group-item text-muted">Nenhuma operação realizada ainda.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
